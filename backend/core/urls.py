@@ -27,7 +27,7 @@ from metrics.views import (
     BoardTimeseriesView, BoardWIPView, BoardReviewTimeseriesView, UserLeaderboardView, BoardViewSet
 )
 from metrics.views_team_metrics import (
-    TeamSummaryView, TeamTimeseriesView
+    TeamSummaryView, TeamTimeseriesView, TeamBoardsView
 )
 
 from metrics.views_user_metrics import (
@@ -113,4 +113,6 @@ urlpatterns = [
 
     # Compliance snapshot
     path("api/remediation/compliance",       ComplianceSummaryView.as_view(),       name="rt_compliance"),
+    
+    path("api/metrics/teams/<int:team_id>/boards", TeamBoardsView.as_view(), name="metrics_team_boards"),
 ]

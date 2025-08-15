@@ -27,3 +27,10 @@ class TeamSummaryView(APIView):
         s.is_valid(raise_exception=True)
         data = team_summary(team_id, s.validated_data.get("start"), s.validated_data.get("end"))
         return Response(data)
+    
+class TeamBoardsView(APIView):
+    permission_classes = [IsAuthenticated]
+    def get(self, request, team_id: int):
+        team = get_object_or_404(Team, pk=team_id, is_active=True)
+        boards = [{"id": b.id, "name": b.name} for b in team.boards.all().order_by("name")]
+        return Response({"team_id": team.id, "boards": boards})
