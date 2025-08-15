@@ -253,7 +253,11 @@ class RemediationTicket(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     resolved_at = models.DateTimeField(null=True, blank=True)
     meta = models.JSONField(default=dict, blank=True)
-
+    # Lightweight ops fields (optional)
+    owner = models.CharField(max_length=255, null=True, blank=True)             # e.g., assignee email/login
+    acknowledged_at = models.DateTimeField(null=True, blank=True)
+    snoozed_until = models.DateTimeField(null=True, blank=True)                 # don't alert until this time
+    
     class Meta:
         indexes = [
             models.Index(fields=["status"]),

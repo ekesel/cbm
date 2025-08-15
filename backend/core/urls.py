@@ -38,6 +38,15 @@ from metrics.views_user_metrics import (
 from metrics.views_workitems import (
     WorkItemSearchView, WorkItemDetailView, WorkItemByKeyView, WorkItemFacetView
 )
+from etl.views_admin import (
+    AdminRunETLView, AdminETLStatusView, AdminETLJobsListView, AdminETLJobDetailView, AdminETLCancelView
+)
+
+from metrics.views_remediation import (
+    RemediationTicketListView, RemediationTicketDetailView, RemediationTicketUpdateView,
+    RemediationTicketBulkActionView, ComplianceSummaryView
+)
+
 
 
 def health(request):
@@ -88,4 +97,20 @@ urlpatterns = [
     path("api/workitems/by-key", WorkItemByKeyView.as_view(), name="workitem_by_key"),
     path("api/workitems/<int:pk>", WorkItemDetailView.as_view(), name="workitem_detail"),
     path("api/workitems/facets", WorkItemFacetView.as_view(), name="workitem_facets"),
+    
+    path("api/admin/etl/run",    AdminRunETLView.as_view(),        name="etl_run"),
+    path("api/admin/etl/status", AdminETLStatusView.as_view(),     name="etl_status"),
+    path("api/admin/etl/jobs",   AdminETLJobsListView.as_view(),   name="etl_jobs"),
+    path("api/admin/etl/jobs/<int:job_id>", AdminETLJobDetailView.as_view(), name="etl_job_detail"),
+    path("api/admin/etl/cancel", AdminETLCancelView.as_view(),     name="etl_cancel"),   # optional
+    
+    
+    # Tickets
+    path("api/remediation/tickets",          RemediationTicketListView.as_view(),   name="rt_list"),
+    path("api/remediation/tickets/<int:pk>", RemediationTicketDetailView.as_view(), name="rt_detail"),
+    path("api/remediation/tickets/<int:pk>/update", RemediationTicketUpdateView.as_view(), name="rt_update"),
+    path("api/remediation/tickets/bulk",     RemediationTicketBulkActionView.as_view(),    name="rt_bulk"),
+
+    # Compliance snapshot
+    path("api/remediation/compliance",       ComplianceSummaryView.as_view(),       name="rt_compliance"),
 ]
