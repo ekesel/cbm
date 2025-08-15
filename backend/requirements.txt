@@ -1,0 +1,12 @@
+Django>=4.2
+djangorestframework
+psycopg2-binary
+celery
+redis
+python-dotenv
+requests
+gunicorn
+djangorestframework-simplejwt
+cryptography
+boto3
+django-filter>=24.2
